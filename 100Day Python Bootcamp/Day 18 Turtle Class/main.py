@@ -15,6 +15,8 @@ import random
 
 
 t = turtle.Turtle()
+t.hideturtle()
+t.speed("fastest")
 turtle.Screen().colormode(255)
 
 def go_to_left_top():
