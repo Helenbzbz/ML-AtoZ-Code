@@ -50,3 +50,10 @@ class Snake:
         new_part.shape("square")
         new_part.goto(position)
         self.snake_body.append(new_part)
+
+    def reset(self):
+        for seg in self.snake_body:
+            seg.goto(1000, 1000)
+        self.snake_body.claer()
+        self.create_body()
+        self.head = self.snake_body[0]
