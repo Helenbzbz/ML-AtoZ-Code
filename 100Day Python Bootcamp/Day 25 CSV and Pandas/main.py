@@ -26,10 +26,7 @@ game_is_on = True
 while game_is_on:
     answer_state = screen.textinput(title = f"Guess the State {state_guess}/50", prompt = "What's another state")
     if answer_state == "Exit":
-        missing_state = []
-        for state in all_states:
-            if state not in guess_states:
-                missing_state.append(state)
+        missing_state = [state for state in all_states if state not in guess_states]
         new_data = pd.DataFrame(missing_state)
         new_data.to_csv("100Day Python Bootcamp/Day 25 CSV and Pandas/Missing_State.csv")
         game_is_on = False
