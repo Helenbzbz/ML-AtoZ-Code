@@ -5,7 +5,7 @@ class DataManager():
 
     def __init__(self) :
         #This class is responsible for talking to the Google Sheet.
-        self.auth = ("flight_deals", "oinacouqd012")
+        self.auth = ("flight_deals", "API_KEY")
         self.url = "https://api.sheety.co/0d66d2433f110b62f91adfb3228e9f20/flightDeals/prices"
 
     def read_csv(self):
@@ -20,8 +20,6 @@ class DataManager():
             city_id = city['id']
             new_data = {"price": {"iataCode": city_code}}
             response = requests.put(f"{self.url}/{city_id}", json = new_data, auth=self.auth)
-            print(response.text)
 
-DataManager().update_destimation_code()
 
 
