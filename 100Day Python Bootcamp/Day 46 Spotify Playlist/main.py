@@ -5,7 +5,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 billboard_endpoint = "https://www.billboard.com/charts/hot-100/"
 CLIENT_ID = "21978120adb24b39adc45928553aac38"
-CLIENT_KEY = "199bdd83a51d4cd59ab87628466c01e9"
+CLIENT_KEY = ""
 USER_NAME = "Helenbzbz"
 user_endpoint = "https://api.spotify.com/v1/me/"
 
