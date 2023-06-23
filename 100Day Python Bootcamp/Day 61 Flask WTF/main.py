@@ -3,14 +3,26 @@ from flask_wtf import FlaskForm
 from flask_wtf.form import _Auto
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length
+from flask_bootstrap import Bootstrap
 
-app = Flask(__name__)
+def create_app():
+  app = Flask(__name__)
+  Bootstrap(app)
+
+  return app
+
+app = create_app()
 app.config['SECRET_KEY'] = "PythonTest"
 
 class MyForm(FlaskForm):
     email = StringField('email',validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired(), Length(min = 8)])
     submit = SubmitField(label = "Log In")
+
+
+@app.route("/")
+def home():
+    return render_template('index.html')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -21,10 +33,6 @@ def login():
         else:
             return render_template("denied.html")
     return render_template("login.html", form=login_form)
-
-@app.route("/")
-def home():
-    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
