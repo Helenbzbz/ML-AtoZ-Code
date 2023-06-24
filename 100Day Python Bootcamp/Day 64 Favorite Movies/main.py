@@ -9,7 +9,7 @@ import requests
 
 movie_headers = {
     "accept": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNDEwMmE1NmZkZmNiNDU5MTE0YTRjNTExOTVkMDdjYiIsInN1YiI6IjY0OTVlZTBlOWEzNThkMDBjNTY4OWM1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uUj3IvFbLgpEpcgoCiuXJh0ZBIjpYBZyuVCJwHF3vgk"
+    "Authorization": "Bearer "
 }
 
 db = SQLAlchemy()
