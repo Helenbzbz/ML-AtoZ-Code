@@ -5,10 +5,11 @@ from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user, AnonymousUserMixin
 from forms import CreatePostForm, RegisterForm, LoginForm
 from flask_gravatar import Gravatar
 from functools import wraps
+
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -22,6 +23,7 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
 
 ##CONFIGURE TABLES
 class BlogPost(db.Model):
@@ -42,20 +44,28 @@ class BlogUser(UserMixin, db.Model):
     password = db.Column(db.String(100))
 
 
+## Set up Anonymous User and login manager
+class AnonymousUser(AnonymousUserMixin):
+    id = None
+login_manager.anonymous_user = AnonymousUser
+
 @login_manager.user_loader
 def load_user(user_id):
     return BlogUser.query.get(user_id)
 
+
+## Create admin_only decoration function
 def admin_only(function):
     @wraps(function)
     def decorated_function(*args, **kwargs):
-        if current_user == None or current_user.id != 1 :
+        if current_user.id != 1:
             return abort(403)
         return function(*args, **kwargs)        
     return decorated_function
 
 @app.route('/')
 def get_all_posts():
+    print(current_user)
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts, current_user = current_user)
 
